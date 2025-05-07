@@ -4,6 +4,10 @@ import random
 suits = ['C', 'D', 'H', 'S' ]
 ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'] 
 
+print(sorted(ranks))
+
+T = 10
+
 def deck(): #builds deck
     full_deck = []
     
@@ -30,6 +34,8 @@ def ranking(cards):
     royal_flush4 = {"AS", "KS", "QS", "JS", "TS"}
     s = set()
     r = set()
+    
+    r_dict = {}
     '''
     r = {}
     r['C'] = 0
@@ -43,16 +49,52 @@ def ranking(cards):
     for c in cards:
         r.add(c[0])
         s.add(c[1])
-        
+        r_dict[c[0]] = r_dict.get(c[0], 0) + 1
+    
+    r_vals = r_dict.values()
+    
+    r_vals = sorted(r_vals)
+    
+    print(f"rv: {r_vals}")
 
     if royal_flush1.issubset(set(cards)) or royal_flush2.issubset(set(cards)) or royal_flush3.issubset(set(cards)) or royal_flush4.issubset(set(cards)): 
-        print("yuh")
+        print("royal flush")
+        
+    #STRAIGHT FLUSH
+    elif r_vals == [1, 1, 1, 4] :
+        print("four of a kind")
+    
+    elif r_vals == [1, 1, 2, 3]:
+        print("full house")
+    
+    #FLUSH
+    
+    #STRAIGHT FLUSH
+        
+    elif r_vals == [1, 1, 1, 1, 3]:
+        print("three of a kind")
+        
+    elif r_vals == [1, 1, 1, 2, 2]:
+        print("2 pairs")
+    
+    elif r_vals == [1, 1, 1, 1, 1, 2]:
+        print("1 pair")
+        
+    else:
+        print("high card")
+    
+    
+        
+        
+        
+   
     
     
     
     print(cards)
     print(f"s : {s}")
-    print(f"r: {r}")
+    print(f"r: {sorted(r)}")
+    print(f"r_dict: {r_dict}")
 
 '''
 d = deck()
@@ -71,4 +113,4 @@ if ["a", "k"] in ["k", "a"]:
     
 '''
 
-ranking(["AC", "JC", "TC", "7S", "KC", "QC", "8S"])
+ranking(["1C", "1S", "1H", "2D", "2C", "QC", "8S"])
