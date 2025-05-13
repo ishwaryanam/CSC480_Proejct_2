@@ -4,6 +4,8 @@ import random
 suits = ['C', 'D', 'H', 'S' ]
 ranks = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'] 
 
+values = {'2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10, 'J':11, 'Q':12, 'K':13, 'A':14}
+
 print(sorted(ranks))
 
 T = 10
@@ -26,29 +28,48 @@ def draw(deck, num): #deck already shuffled
 def shuffle(deck):
     d = random.shuffle(deck)
     return d
+
+
+def simulate(my_cards, community):
+    #start timer
     
-def ranking(cards):
+    known = set(my_cards + community)
+    
+    #timer
+    
+    #create and shuffle a deck, check that deck doesn't have duplicates
+    
+    #opponent draws cards
+    #do we need more community cards? - draw and create community
+    
+    #rank your hand (call ranking)
+    #rank opponents hand (call ranking)
+    
+    #evaluate who wins, update wins, ties, and total games
+    
+    
+    
+    
+    
+def ranking(cards): #returns a number based on what the win condition is 
     royal_flush1 = {"AC", "KC", "QC", "JC", "TC"}
     royal_flush2 = {"AH", "KH", "QH", "JH", "TH"}
     royal_flush3 = {"AD", "KD", "QD", "JD", "TD"}
     royal_flush4 = {"AS", "KS", "QS", "JS", "TS"}
-    s = set()
+    s = {}
+    s['H'] = 0
+    s['D'] = 0
+    s['S'] = 0
+    s['C'] = 0
+    
     r = set()
     
     r_dict = {}
-    '''
-    r = {}
-    r['C'] = 0
-    r['S'] = 0
-    r['H'] = 0 
-    r['D'] = 0
-    '''
     
-
     
     for c in cards:
         r.add(c[0])
-        s.add(c[1])
+        s[c[1]] += 1
         r_dict[c[0]] = r_dict.get(c[0], 0) + 1
     
     r_vals = r_dict.values()
@@ -67,9 +88,12 @@ def ranking(cards):
     elif r_vals == [1, 1, 2, 3]:
         print("full house")
     
-    #FLUSH
+    elif s['C'] == 5 or s['H'] == 5 or s['D'] == 5 or s['S'] == 5:
+        
+        print("flush")
+  
     
-    #STRAIGHT FLUSH
+    #STRAIGHT
         
     elif r_vals == [1, 1, 1, 1, 3]:
         print("three of a kind")
@@ -84,10 +108,6 @@ def ranking(cards):
         print("high card")
     
     
-        
-        
-        
-   
     
     
     
@@ -96,21 +116,22 @@ def ranking(cards):
     print(f"r: {sorted(r)}")
     print(f"r_dict: {r_dict}")
 
-'''
-d = deck()
 
-print(len(d))
 
-d_new = draw(d, 2)
+ranking(["1C", "2C", "3C", "4C", "5C", "QD", "8S"])
 
-print(d_new)
-print(len(d_new))
-            
-    
-if ["a", "k"] in ["k", "a"]:
+# in main
+# create a deck
+# pull two cards as your hole 
+# pull two cards as their hole
 
-    print("yuh")
-    
-'''
+# after each simulation 
+# simulate - keep going if stay
+# pull 3 community cards - flop
+# simulate - keep going if stay
+# pull 1 community card - turn
+#simulate - keep going if stay
+# pull 1 community card - river
 
-ranking(["1C", "1S", "1H", "2D", "2C", "QC", "8S"])
+# if you're still in at the end, who ever actually has a higher hand wins
+# if you ever fold, you lose
