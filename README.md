@@ -1,1 +1,2 @@
-# CSC480_Proejct_2
+# CSC480_Project_2
+No special instructions, just run it
